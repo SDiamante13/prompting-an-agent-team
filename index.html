@@ -1922,6 +1922,24 @@ Minimal words, use screenshots, videos, gifs,</div>
         <div class="sticky command response">One sentence changed the goal, and PO re-planned the whole team from it. <b>Already built, so finishing:</b> #63 and #75 complete their deploy and demo, and then conference polish stops. <b>Merged with the next normal deploy:</b> #83 (it was nearly done) no longer ships alone. <b>On hold:</b> the Safari check and the rate-limit investigation. <b>Down to low priority:</b> #72, the spending cap. <b>Market Research</b> went back to Priya working alone, with no more conference visitors. Then it handed Steven his top three decisions: #59 ("DDD Reference only for v1"), #34 (data retention) and #70 (<b>one real practitioner</b>).</div>
       </div>
     </li>
+    <li>
+      <div class="when"><b>DOCS</b> · 23:14 UTC · the watcher gets a team</div>
+      <div class="pair">
+        <div class="sticky event"><div class="quote">what's a swap? I feel we coach get some ddd modeling getting started, why don't you organize a team of Agent Teams</div>
+          <div class="tags"><a href="#t-roles">a new role for the watcher</a><a href="#t-parallel">its own worktree</a></div>
+        </div>
+        <div class="sticky command response">A course correction, typed to the session that had been documenting everything. After slice 3, eight hours went to gates, evals, swaps and polish, and the modeling board (4a–4d) never started. DOCS asked one question: who runs it? The Orchestrator was recommended, since it owns the repo and already had 3–4 builders and a load average of 56. Steven chose <b>"I run a new team"</b>. So DOCS cut its own worktree (<code>modeling/4a-event-board</code>), told the Orchestrator and PO, and started a <code>model-pathfinder</code>. The Orchestrator replied within a minute: "no conflict; go ahead," plus four coordination points: the live parser, one mount point in ReplyView, the new scroll behaviour, and handoff through its git-agent.</div>
+      </div>
+    </li>
+    <li class="po">
+      <div class="when"><b>PRODUCT OWNER</b> · Prompt 8 · 23:16 UTC · the PO gets a loop</div>
+      <div class="pair">
+        <div class="sticky event"><div class="quote">/loop look for useful opportunitites and validate them through cheap experiments</div>
+          <div class="tags"><a href="#t-loop">standing order</a><a href="#t-spike">cheap experiments</a></div>
+        </div>
+        <div class="sticky command response">The product owner now works on a loop too, and its unit of work is the <i>experiment</i>. Within two minutes, the Orchestrator's team had two new spikes (#91, #93) running under the paid-run rules.</div>
+      </div>
+    </li>
   </ol>
 </section>
 
@@ -2170,7 +2188,7 @@ Minimal words, use screenshots, videos, gifs,</div>
         <li><b>How the secret stayed out of the demo:</b> the password was read from a mode-600 file only inside <code>fill "$(cat …)"</code>. A probe showed that <code>fill</code> prints just "✓ Done". The network spy on screen shows method, path and status, never bodies. And <code>grep -F -f &lt;pass file&gt; outputs/demos/</code> → 0 hits. See <a href="#t-secret">When a secret slips into chat</a>.</li>
         <li><b>The plan went stale during the build.</b> <code>slice-41-plan.md</code> still says 7 days and "reload". The code ships 90 days and an inline form, because Steven changed both mid-slice. The demo follows the code, and the verifier flagged the drift.</li>
         <li><b>A prompt finding, not a gate finding:</b> "Reply only OK." got OK in one take and "paste the material you want…" in the next. Replies to input that isn't a thread vary, so this was passed on to #73 (prompt v5).</li>
-        <li><b>A finding became a team rule in one lap:</b> the verifier found that <code>network route</code> doesn't survive <code>record start</code>. DOCS passed it to PO, PO routed it to the Orchestrator, and it went into <code>agent-team.md</code>. The next verifier brief (18:33) lists "set <code>network route</code> after <code>record start</code>" among its recording tips.</li>
+        <li><b>A finding became a team rule in one lap:</b> the verifier found that <code>network route</code> doesn't survive <code>record start</code>. DOCS passed it to PO, PO routed it to the Orchestrator, and it went into <code>agent-team.md</code>. The next verifier brief (18:33) lists "set <code>network route</code> after <code>record start</code>" among its recording tips. <b>It became the pattern:</b> the #56 demo found that <code>record start</code> drops localStorage and a second reload stops the recorder, and 4 minutes later the v11 verifier brief listed "record start drops localStorage; reload at most once". Every demo report ends with a Tooling section, and the next brief starts from it.</li>
         <li><b>Not run on purpose:</b> the 429 burst. The real password is live, and a burst from the team's IP would lock everyone out for about 60 s. It's saved for last.</li>
       </ul>
     </article>
@@ -2228,8 +2246,23 @@ Minimal words, use screenshots, videos, gifs,</div>
       <ul>
         <li><b>How you prove a privacy feature on camera:</b> a spy in the page that counts the originals in every request body and shows only the number. The evidence is the zero. This is the same move as the password demos, applied to user data.</li>
         <li><b>What the swaps don't touch:</b> "Maya (night desk)" became "Person 1 (night desk)", and the coach called that group "Ops (night desk)". A role in parentheses still carries identity. The note says only listed words are hidden, so this is by design, but it's worth knowing.</li>
-        <li><b>A new UX bug:</b> with "Your swaps" open, the sticky composer covers about 80% of the viewport, so the reply sits behind it, and even the "New reply ↓" pill can't reveal it.</li>
+        <li><b>A new UX bug:</b> with "Your swaps" open, the sticky composer covers about 80% of the viewport, so the reply sits behind it, and even the "New reply ↓" pill can't reveal it. It was already filed as <b>#89</b> ("close on send, move out of the sticky composer"), and DESIGNER agreed with the direction without writing a new spec.</li>
         <li><b>Tooling truth vs. the help text:</b> <code>record start</code> does <i>not</i> carry localStorage into the new context, despite <code>--help</code>. A second in-take reload stopped the recorder silently. The last check was done by <code>eval</code>, and the report says so.</li>
+      </ul>
+    </article>
+    <article class="slice" id="slice-64">
+      <h3>Slice 64 + 85: The reply gets a layout (prompt v11)</h3>
+      <span class="status">Done: live, every hosted criterion PASS. 2/2 F2 runs end with two verbatim source lines, 0 plain-text blocks in real replies</span>
+      <p><b>The reply stops being a wall of text.</b> "Events, in order" becomes a numbered list with a <i>From thread</i> or <i>Guess</i> chip on each event. "Words that don't match" becomes a Word / Team / Meaning / Source table. The question becomes a card at the end that quotes <b>the two thread lines it joins</b>, which is what Priya asked for in 06b and 07 ("show me the two lines"). The parsed events are also what the new modeling team turns into board stickies (#94).</p>
+      <div class="versus">
+        <figure><a href="screenshots/slice-64-events.png" target="_blank"><img src="screenshots/slice-64-events.png" alt="Events list with From thread chips" loading="lazy"></a><figcaption><b>Events, in order:</b> five events, each with its source chip.</figcaption></figure>
+        <figure><a href="screenshots/slice-64.png" target="_blank"><img src="screenshots/slice-64.png" alt="Word Team Meaning Source table and the question card with two quoted source lines" loading="lazy"></a><figcaption><b>The table and the card:</b> "Question for the account team lead and the billing lead, at Friday's service review", with both source lines verbatim from the thread.</figcaption></figure>
+      </div>
+      <figure class="demo"><video src="screenshots/slice-64.mp4" controls muted playsinline preload="metadata" style="width:100%;display:block;background:#000"></video><figcaption>1 min 59 s, one take, on production. The example thread becomes a list, a table and a card. At 390 px wide nothing scrolls sideways. A follow-up asking for <code>**bold**</code>, an <code>&lt;img onerror&gt;</code> and <code># heading</code> shows as literal text with no alert. "hi" still gets one plain paragraph.</figcaption></figure>
+      <ul>
+        <li><b>Security checked on camera:</b> the demo asked the model to send markup and a script-bearing image. The log shows 0 <code>img</code>, 0 <code>strong</code> and 0 <code>h1</code>. The verifier also noted the test's limit: the model put everything on one line, so a line-start <code>#</code> wasn't exercised live. Unit tests cover that.</li>
+        <li><b>Scored against what's deployed:</b> again, the replies were checked in a clean <code>git archive</code> of the live commit, because the main tree already held newer, uncommitted work.</li>
+        <li><b>The recorder stretches:</b> a mid-take <code>set viewport 390</code> resizes the page, but the recorder stretches it into its 1280×578 frame. Two segments were rescaled back to their true shape in ffmpeg, and the report says so.</li>
       </ul>
     </article>
     <details class="projected-later">
