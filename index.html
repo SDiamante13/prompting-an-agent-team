@@ -2155,6 +2155,24 @@ Minimal words, use screenshots, videos, gifs,</div>
         <li><b>Not run on purpose:</b> the 429 burst. The real password is live, and a burst from the team's IP would lock everyone out for about 60 s. It's saved for last.</li>
       </ul>
     </article>
+    <article class="slice" id="slice-63">
+      <h3>Slice 63 + 75: Bring a thread for them</h3>
+      <span class="status">Done: live on prompt v8, 3/3 example runs pass; the only unproven path is a real spent credit limit</span>
+      <p><b>Built straight from interview 06b:</b> "Nobody brings their thread to a meetup. Bring one for them." One click loads a fictional thread with a link hidden between an early line and a late one. The coach's question has to find it, and it did in all three live runs. The same slice made the gate forgiving (case-insensitive, no "check the slide") and says out loud that the browser stays unlocked for 90 days.</p>
+      <div class="versus">
+        <figure><a href="screenshots/slice-63.png" target="_blank"><img src="screenshots/slice-63.png" alt="Unlocked app with the example thread loaded in the box and nothing sent" loading="lazy"></a><figcaption><b>After one click:</b> the 90-day line, and the example thread in the box, with focus at the top. Nothing has been sent until Send is pressed.</figcaption></figure>
+        <figure><a href="screenshots/slice-63-reply.png" target="_blank"><img src="screenshots/slice-63-reply.png" alt="The coach's reply to the example thread, reply in 6.3 seconds" loading="lazy"></a><figcaption><b>The reply, in 6.3 s:</b> the question joins Mon 08:11 ("late = missed delivery appointment") with Thu 09:30 ("credit issued for 7731"), the two lines Priya said the example has to prove.</figcaption></figure>
+      </div>
+      <figure class="demo"><video src="screenshots/slice-63.mp4" controls muted playsinline preload="metadata" style="width:100%;display:block;background:#000"></video><figcaption>4 min, two takes, on production. A wrong password, then the right one in UPPER CASE (shown only as dots). Then the example thread, the reply, "hi" and "what is DDD?" getting natural answers, and each refusal showing the right way out. Only 5 paid calls in total.</figcaption></figure>
+      <table class="acc"><thead><tr><th>#</th><th>Criterion</th><th>Result</th></tr></thead><tbody><tr><td>1</td><td>“Try an example thread” fills the box (3,492 chars, fictional) and sends nothing</td><td class="pass">PASS</td></tr><tr><td>2</td><td>Only Send sends it</td><td class="pass">PASS</td></tr><tr><td>3</td><td>The button hides once a conversation exists, and comes back when it's empty</td><td class="pass">PASS</td></tr><tr><td>5</td><td><b>3/3 live runs</b>: the question joins both halves of the thread, asks rather than proposes, and names the forum</td><td class="pass">PASS</td></tr><tr><td>6</td><td>Password is case-insensitive (UPPER and mixed case unlock; wrong still 401)</td><td class="pass">PASS</td></tr><tr><td>8</td><td>Wrong-password copy no longer mentions a slide</td><td class="pass">PASS</td></tr><tr><td>9</td><td>“This browser stays unlocked for 90 days.” after unlock</td><td class="pass">PASS</td></tr><tr><td>10</td><td>A spent credit limit → “out of credit”, no Retry</td><td class="">not run</td></tr><tr><td>#75</td><td>Refusals offer “Start a new one” only where a new conversation helps</td><td class="pass">PASS</td></tr></tbody></table>
+      <ul>
+        <li><b>Interview → issue → plan → live in about 90 minutes.</b> Interview 06b landed around 17:20 UTC. PO promoted #63 and filed #75 at 17:24, and the pathfinder started the same minute. The demo was recorded on production by 18:41.</li>
+        <li><b>The verifier checked its own pass:</b> "The AC5 pass relies on the widened key." A commit added the bare word "appointment" to the evidence check, and under the plan's original key, two of the three runs would have failed. The questions do join the right lines, but the check is looser than the plan says. It asks for the decision to be written down.</li>
+        <li><b>A question can pass and still be weaker.</b> Run 2 asked "the delivery appointment or the weekly late report?", a rule against an artifact, not two outcomes. It passes <code>questionAsks</code>, and it's flagged to watch.</li>
+        <li><b>Two labels for one action:</b> "New conversation" in the composer, and "Start a new one" on refusals.</li>
+        <li><b>Shipped the same minute its purpose was dropped.</b> Steven deprioritized conference work at 18:40, while the verifier was recording this demo. The slice was finished because it was already built.</li>
+      </ul>
+    </article>
     <article class="slice" id="slice-4a">
       <h3>Slice 4a: First shared board: an event sticky</h3>
       <span class="status later">Not started</span>
