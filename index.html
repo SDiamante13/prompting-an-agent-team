@@ -169,6 +169,9 @@
   .gloss-list dt { font-weight: 800; font-variation-settings: "CASL" 1; }
   .gloss-list dd { margin: 0; color: var(--ink-soft); max-width: 70ch; }
   .pick { display: grid; gap: 22px; }
+  details.projected-later > summary { cursor: pointer; font-weight: 700; padding: 12px 0; color: var(--ink-soft); }
+  .later-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .later-grid .versus { grid-template-columns: 1fr; }
   details.superseded { margin-top: 14px; }
   details.superseded > summary { cursor: pointer; color: var(--ink-soft); font-size: 14.5px; font-weight: 650; padding: 6px 0; }
   details.superseded figure { margin-top: 10px; }
@@ -530,7 +533,7 @@ i.e. test, code, commit, refactor (ACN), commit</div>
         <h4>What Steven said</h4>
         <div class="said">If you can take the video yourself let's explore how complicated that is (ffmeg right?)</div>
         <div class="did">It ran four commands to test the idea: <code>agent-browser record</code> to WebM, ffmpeg to MP4 and GIF, and a toggleable <code>.srt</code> caption track. It also found a limit: this ffmpeg build has no <code>drawtext</code> filter. The fix was to inject caption banners into the page while recording. Cost estimate: about 30–60s per slice.</div>
-        <div class="did" style="margin-top:8px"><b>Later, at team scale (18:35 UTC):</b> Steven asked PRODUCT OWNER to find "quick spikes … that a subagent of the Orchestrator can take up async" (PO Prompt 5). PO filed the questions as issues, and the Orchestrator sent out <b>three spikes in 13 seconds</b>, each answering one GitHub issue that blocks a feature. <code>spike-79</code>: does Netlify streaming get past the ~30 s cutoff? It proves this with a throwaway function that streams for 60 s and calls no model (this gates #8 streaming). <code>spike-80</code>: the DDD Reference's token count, license and attribution (this gates the #58 knowledge base). <code>spike-81</code>: OpenRouter spend caps, alerts, and whether a spent key returns 402 or 403, "with a doc citation" (this gates #72). All three are "No product code, no commits." The issue body is the question, and the spike's answer decides the slice. <b>It paid off within 4 minutes:</b> spike-81 found that OpenRouter also returns a <i>transient</i> 402 (<code>openrouter_in_flight_budget</code>, with Retry-After), which is likely when a whole room uses the app at once. But the #75 code mapped <b>every</b> 402 to "out of credit". PO filed <b>#83 as P0</b> at 18:39: "today it would tell the room the coach is out of credit". A fix builder in its own worktree started 40 seconds later. (Once Steven dropped conference priority at 18:40, #83 was folded into the next normal deploy.)</div>
+        <div class="did" style="margin-top:8px"><b>Later, at team scale (18:35 UTC):</b> Steven asked PRODUCT OWNER to find "quick spikes … that a subagent of the Orchestrator can take up async" (PO Prompt 5). PO filed the questions as issues, and the Orchestrator sent out <b>three spikes in 13 seconds</b>, each answering one GitHub issue that blocks a feature. <code>spike-79</code>: does Netlify streaming get past the ~30 s cutoff? It proves this with a throwaway function that streams for 60 s and calls no model (this gates #8 streaming). <code>spike-80</code>: the DDD Reference's token count, license and attribution (this gates the #58 knowledge base). <code>spike-81</code>: OpenRouter spend caps, alerts, and whether a spent key returns 402 or 403, "with a doc citation" (this gates #72). All three are "No product code, no commits." The issue body is the question, and the spike's answer decides the slice. <b>It paid off within 4 minutes:</b> spike-81 found that OpenRouter also returns a <i>transient</i> 402 (<code>openrouter_in_flight_budget</code>, with Retry-After), which is likely when a whole room uses the app at once. But the #75 code mapped <b>every</b> 402 to "out of credit". PO filed <b>#83 as P0</b> at 18:39: "today it would tell the room the coach is out of credit". A fix builder in its own worktree started 40 seconds later. (Once Steven dropped conference priority at 18:40, #83 was folded into the next normal deploy.) <b>spike-79 overturned the docs:</b> "Function streaming does not get past ~30 s." A stream that sends a chunk every 2 s is still cut at ~30.3–31.0 s, and "the cut is silent": HTTP 200 and a clean close, so only a missing final event shows it happened. The docs say 60 s. Twenty minutes later, the #8 streaming plan was briefed with that spike's closing comment on its reading list.</div>
         <details class="layer2">
           <summary>Depth 3: why it works</summary>
           <ul>
@@ -1007,7 +1010,7 @@ When done, SendMessage team-lead with a 6-line summary and any user decisions.</
         <div class="said">/design
 read all the docs here and create some mockups</div>
         <div class="did">It read all 9 docs in <code>outputs/</code> (handoff, generative-UI direction, backlog, domain analysis, research, agent team, sensor contract, plan), looked for a design system, and built a mockup canvas as a Claude Design artifact.</div>
-        <div class="did" style="margin-top:8px"><b>Two builders, one repo, no collisions (18:36 UTC):</b> while the main builder works on #78 in the main tree, the Orchestrator starts a second builder, <code>chores</code>, with <code>isolation: "worktree"</code>. It gets its own git worktree on its own branch. The brief fences it off ("Don't touch <code>server/eval/*</code> or <code>server/coachInstructions.ts</code>, because #78 owns them. If an issue needs them, skip it and report"). It gives it a queue of seven small issues, one at a time, and keeps a single committer for both builders, who commits into the worktree with <code>git -C</code>. Several items on that queue (#22 the stale path, #49 scrubbing <code>/Users/</code> paths) started as this watcher's suggestions to PO.</div>
+        <div class="did" style="margin-top:8px"><b>Two builders, one repo, no collisions (18:36 UTC):</b> while the main builder works on #78 in the main tree, the Orchestrator starts a second builder, <code>chores</code>, with <code>isolation: "worktree"</code>. It gets its own git worktree on its own branch. The brief fences it off ("Don't touch <code>server/eval/*</code> or <code>server/coachInstructions.ts</code>, because #78 owns them. If an issue needs them, skip it and report"). It gives it a queue of seven small issues, one at a time, and keeps a single committer for both builders, who commits into the worktree with <code>git -C</code>. Several items on that queue (#22 the stale path, #49 scrubbing <code>/Users/</code> paths) started as this watcher's suggestions to PO. <b>17 minutes later (18:53)</b>, one production deploy shipped the chores (#48, #14, #12, #13, #47, docs #22 and #49) together with the P0 fix from the other worktree (#83). No paid calls were made, and the fonts now come from the site itself (0 requests to Google).</div>
         <details class="layer2">
           <summary>Depth 3: why it works</summary>
           <ul>
@@ -1222,6 +1225,7 @@ read all the docs here and create some mockups</div>
             <li><b>The rule spreads into every brief.</b> Six minutes later, the next pathfinder brief opened with "Don't commit. <b>Never write the prod access password anywhere.</b>" The lead doesn't count on each agent remembering the incident: every new brief carries the rule.</li>
             <li><b>Pass the secret by reference, not by value.</b> The deployer brief (15:55) never contains the password. It holds a <i>path</i>: "the password is in the file at the path in <code>$PASS_FILE</code> … use it only as <code>"$(cat "$PASS_FILE")"</code> inside commands and NEVER echo, print or log it." The value goes from the file to curl without ever entering an agent's context.</li>
             <li><b>Test the tool with a harmless value first.</b> The verifier has to type the real password on camera, into a field that shows dots. Its brief (15:57) says to "check that agent-browser's fill output doesn't echo the value: fill a harmless test value first". A tool's output is another place a secret can leak, so it gets tested with a stand-in before the real value goes in.</li>
+            <li><b>The guard outlives the agent, and gets better.</b> At 18:55 the committer's context filled up, and the Orchestrator started a replacement. The first guard (15:37) had been a message to the old committer that <i>contained the password</i>, as a literal to grep for. The replacement's brief carries the guard forward without the value: "<code>git diff --cached | grep -ciF -f &lt;pass file&gt;</code> must print 0. Never cat that file." When an agent is replaced, its standing rules have to go into the new brief, and this time the rule came back safer.</li>
             <li><b>Say the weakness out loud.</b> "A dictionary word plus a year is weak against guessing. The per-IP limit … and an OpenRouter credit limit are the real protection." The gate keeps casual traffic out; the <b>spending cap</b> is what limits the damage.</li>
           </ul>
           <div class="caveat"><b>Where it leaks:</b> the value is now in the Orchestrator's transcript and in this watcher's tool output. This page shows it only as <span class="redacted">▮▮▮▮</span>. The plan's demo rule also changed: there's no throwaway password anymore, so the verifier reads the real one from a private scratch file and never types it on camera.</div>
@@ -1360,6 +1364,14 @@ read all the docs here and create some mockups</div>
             <li><b>It found a conflict between two decisions.</b> The 90-day cookie (Prompt 26) against "rotate the password after the conference" (the secret guard): "Then the 90 days is a promise you break on Monday." Its suggestion: rotate on abuse, and let the spending cap be the limit. <b>Adopted:</b> #72 now says "rotate only on abuse", with the spend cap as the limit. The research changed the security plan.</li>
             <li><b>A canned demo would backfire:</b> "A demo that's better than the product is the thing I'd tell people about, and not kindly." A prepared example reply has to say it's prepared.</li>
                       <li><b>Research to plan in under an hour.</b> PO filed <b>#75 "Conference gate polish: forgiving password, clear errors, 'stays unlocked'"</b> at 17:24 UTC and promoted <b>#63 "Try an example thread"</b> to P1. The same minute, the Orchestrator briefed a pathfinder on both as one "conference-readiness slice", with "Also skim … interview 06b" in the reading list.</li>
+          </ul>
+          <h4>Interview #7 (after slice 63): judging real replies, back to solo prep</h4>
+          <ul>
+            <li><b>The pivot reached research within minutes.</b> After "we no longer should prioritize conference demoing", interview 07 dropped the meetup and went back to Priya preparing alone. It tested three <i>real</i> replies from the production prompt (v8), not planted slips.</li>
+            <li><b>#73 held where it was aimed:</b> views A/B kept the same group, and no shift or desk appeared as a holder, <b>3/3</b>. "Same group under every word. First reply I've checked that holds." The question asked rather than proposed in <b>2/3</b>. The miss was a ruling in disguise, which the eval's <code>questionAsks</code> still passes.</li>
+            <li><b>The persona found a cheaper test than the eval:</b> "If the question hasn't got a load in it, it's the wrong run." Her five-second tell matched <code>questionSpansThread</code> exactly, and the interview proposes it as a new check (<code>questionNamesCase</code>). She now accepts running twice: "Picking a question with a load over a ruling isn't coaching, it's triage."</li>
+            <li><b>#77 sized on real output:</b> a "view B with no view A" showed up in 1 of 3. She saw the label but misread the meaning, and would have pasted it into the RFC. Her fix: group names, because "a name can't go missing the way a letter does."</li>
+            <li><b>Where the value lands:</b> the earlier question reached a colleague and changed the review a week early. "The tool's for the week before a meeting, not the week after."</li>
           </ul>
           <div class="caveat">The session's own README says it: "Synthetic interviews generate hypotheses, not evidence. Promote an insight only after a real practitioner confirms it." Explore DDD is the place to find real Priyas.</div>
           <h4>Reusable template</h4>
@@ -2029,7 +2041,7 @@ Minimal words, use screenshots, videos, gifs,</div>
       </ul>
       <div class="versus">
         <div class="note-board"><b>No projected screen.</b> This slice came from a bug, not the plan. Predictions are for planned slices; findings create new ones.</div>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 1b.</div>
+        <div class="actual-empty">Never demoed. Slice 1b was cut by the <a href="#t-rewind">rewind</a>, and its committed work shipped without a demo of its own.</div>
       </div>
     </article>
     <article class="slice" id="slice-2">
@@ -2144,7 +2156,7 @@ Minimal words, use screenshots, videos, gifs,</div>
     </article>
     <article class="slice" id="slice-41">
       <h3>Slice 41: A shared password for the conference</h3>
-      <span class="status">Done: live, 7 of 10 criteria PASS on production; the rate-limit burst and rotation still open</span>
+      <span class="status">Done: live, 7 of 10 criteria PASS on production. The rate-limit burst moved to #72; the password is rotated only on abuse</span>
       <p><b>The first slice that came from a sentence, not a plan:</b> "we need somekind of security. A simple password … is good enough." PO filed it, the Orchestrator asked two security questions, and it shipped the same afternoon. The demo had to show the gate working <i>without ever showing the password</i>.</p>
       <div class="versus">
         <figure><a href="screenshots/slice-41.png" target="_blank"><img src="screenshots/slice-41.png" alt="The gate: purpose line, data-flow notice and one conference password field" loading="lazy"></a><figcaption><b>Fresh browser:</b> purpose line, the data-flow notice, and one "Conference password" field. There's no message box until you unlock.</figcaption></figure>
@@ -2178,110 +2190,112 @@ Minimal words, use screenshots, videos, gifs,</div>
         <li><b>Shipped the same minute its purpose was dropped.</b> Steven deprioritized conference work at 18:40, while the verifier was recording this demo. The slice was finished because it was already built.</li>
       </ul>
     </article>
-    <article class="slice" id="slice-4a">
+    <article class="slice" id="chores-30af2d6">
+      <h3>Chores: seven small issues, one deploy</h3>
+      <span class="status">Done: live, 4 checks PASS; #83 covered by tests only</span>
+      <p><b>What the worktree builder shipped</b> while the main builder planned #78: a self-hosted font (#47, 0 Google requests), a whitespace-only draft that clears and sends nothing (#13), and focus that returns to the box after Send and lands on the entry after Retry (#12). The verifier kept it to <b>2 paid calls</b> and a 78-second video.</p>
+      <figure class="demo"><video src="screenshots/chores-30af2d6.mp4" controls muted playsinline preload="metadata" style="width:100%;display:block;background:#000"></video><figcaption>78 s, two takes, on production. The yellow "facts" panel shows the computed font, the draft, and the focused element at each step. The network route that fails the send is set <i>after</i> <code>record start</code>, the tip that went from slice 41 into the team rules.</figcaption></figure>
+      <ul>
+        <li><b>A bug the chores uncovered:</b> after a failed send, the alert and Retry sit <i>under</i> the sticky composer, and the page doesn't scroll to them. "A visitor sees their message with nothing under it, as if it's still waiting." It isn't a regression, but #12's Retry flow depends on it, so the verifier suggests an issue. <b>A minute after the report,</b> the Orchestrator started a worktree builder on the existing <b>#66 "Auto-scroll the log to the newest entry"</b> (P1). The finding went to an open issue, not a new one. <b>DESIGNER had already drawn the fix</b> hours earlier in its #64/#66/#68 spec: follow the log only when the visitor is at the bottom, scroll the entry's last element into view so Retry lands above the composer, show "New reply ↓" when they've scrolled up, and don't smooth-scroll under reduced motion. The bug was found late, but the design was ready for it.</li>
+        <li><b>Honest about what it couldn't show:</b> the #83 fix for 402 errors runs on the server, based on OpenRouter's <code>limit_source</code>. Faking responses in the browser "would test only the client's older 502/503 rendering, not #83, so it was skipped."</li>
+      </ul>
+    </article>
+    <details class="projected-later">
+      <summary>Projected, not built: 13 slices from the original roadmap (4a–13). The work moved to issue-driven slices, so these stay as DESIGNER's forecasts.</summary>
+      <div class="later-grid">
+    <article class="slice later" id="slice-4a">
       <h3>Slice 4a: First shared board: an event sticky</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-04a.png" target="_blank"><img src="screenshots/projected-04a.png" alt="Projected mockup for slice 4a" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. The coach puts one domain event on the board.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 4a.</div>
       </div>
     </article>
-    <article class="slice" id="slice-4b">
+    <article class="slice later" id="slice-4b">
       <h3>Slice 4b: First shared board: correction and undo</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-04b.png" target="_blank"><img src="screenshots/projected-04b.png" alt="Projected mockup for slice 4b" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. "Actually, we say declined": the same card is renamed, with Undo.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 4b.</div>
       </div>
     </article>
-    <article class="slice" id="slice-4c">
+    <article class="slice later" id="slice-4c">
       <h3>Slice 4c: First shared board: a connection</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-04c.png" target="_blank"><img src="screenshots/projected-04c.png" alt="Projected mockup for slice 4c" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. Two events joined by an arrow.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 4c.</div>
       </div>
     </article>
-    <article class="slice" id="slice-4d">
+    <article class="slice later" id="slice-4d">
       <h3>Slice 4d: First shared board: an open question</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-04d.png" target="_blank"><img src="screenshots/projected-04d.png" alt="Projected mockup for slice 4d" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. A pink question sticky for what nobody knows yet.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 4d.</div>
       </div>
     </article>
-    <article class="slice" id="slice-5">
+    <article class="slice later" id="slice-5">
       <h3>Slice 5: Bring in Katacombs sensors</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <div class="note-board"><b>No projected screen.</b> No coaching UI. Development-only structural, behavioral and design sensors, with proof that the hooks actually fire.</div>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 5.</div>
       </div>
     </article>
-    <article class="slice" id="slice-6">
+    <article class="slice later" id="slice-6">
       <h3>Slice 6: Hear a reply</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-06.png" target="_blank"><img src="screenshots/projected-06.png" alt="Projected mockup for slice 6" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. The coach speaks its reply.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 6.</div>
       </div>
     </article>
-    <article class="slice" id="slice-7">
+    <article class="slice later" id="slice-7">
       <h3>Slice 7: Speak one message</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-07.png" target="_blank"><img src="screenshots/projected-07.png" alt="Projected mockup for slice 7" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER, <i>revised</i> after Steven's "voice is central" correction: tap once to talk, tap again to send, with no chat panel.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 7.</div>
       </div>
     </article>
-    <article class="slice" id="slice-8">
+    <article class="slice later" id="slice-8">
       <h3>Slice 8: Complete one spoken exchange</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-08.png" target="_blank"><img src="screenshots/projected-08.png" alt="Projected mockup for slice 8" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. Speak, then hear the answer.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 8.</div>
       </div>
     </article>
-    <article class="slice" id="slice-9">
+    <article class="slice later" id="slice-9">
       <h3>Slice 9: Detect when I finish speaking</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-09.png" target="_blank"><img src="screenshots/projected-09.png" alt="Projected mockup for slice 9" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. Turn detection, with no button to press.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 9.</div>
       </div>
     </article>
-    <article class="slice" id="slice-10">
+    <article class="slice later" id="slice-10">
       <h3>Slice 10: Keep the conversation going</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-10.png" target="_blank"><img src="screenshots/projected-10.png" alt="Projected mockup for slice 10" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. Continuous listening.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 10.</div>
       </div>
     </article>
-    <article class="slice" id="slice-11">
+    <article class="slice later" id="slice-11">
       <h3>Slice 11: Let me interrupt</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-11.png" target="_blank"><img src="screenshots/projected-11.png" alt="Projected mockup for slice 11" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. Barge in while the coach is talking.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 11.</div>
       </div>
     </article>
-    <article class="slice" id="slice-12">
+    <article class="slice later" id="slice-12">
       <h3>Slice 12: Make voice the default</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-12.png" target="_blank"><img src="screenshots/projected-12.png" alt="Projected mockup for slice 12" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. The voice-first UI, shown here with the microphone blocked.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 12.</div>
       </div>
     </article>
-    <article class="slice" id="slice-13">
+    <article class="slice later" id="slice-13">
       <h3>Slice 13: Finish with a useful recap</h3>
       <span class="status later">Not started</span>
       <div class="versus">
         <figure><a href="screenshots/projected-13.png" target="_blank"><img src="screenshots/projected-13.png" alt="Projected mockup for slice 13" loading="lazy"></a><figcaption><b>Projected</b> by DESIGNER. A useful ending state.</figcaption></figure>
-        <div class="actual-empty">The actual screenshot goes here when the verifier demos slice 13.</div>
       </div>
     </article>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -2403,11 +2417,12 @@ Minimal words, use screenshots, videos, gifs,</div>
       });
     };
     fill('toc-techniques', 'details.layer1[id]', el => el.querySelector('h3').textContent);
-    fill('toc-slices', 'article.slice[id]', el => el.querySelector('h3').textContent.replace(/^Slice /, ''));
+    fill('toc-slices', 'article.slice[id]:not(.later)', el => el.querySelector('h3').textContent.replace(/^Slice /, ''));
     document.getElementById('toc-tcount').textContent = document.querySelectorAll('details.layer1[id]').length;
     const openTarget = () => {
       const el = location.hash && document.getElementById(location.hash.slice(1));
       if (el && el.tagName === 'DETAILS') el.open = true;
+      for (let d = el && el.parentElement && el.parentElement.closest('details'); d; d = d.parentElement.closest('details')) d.open = true;
     };
     window.addEventListener('hashchange', openTarget);
     openTarget();
