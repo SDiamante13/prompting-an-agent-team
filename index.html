@@ -2217,6 +2217,21 @@ Minimal words, use screenshots, videos, gifs,</div>
         <li><b>It corrected its own caption on camera:</b> "opens with which" was wrong for 13 seconds, and was fixed at 1:03.</li>
       </ul>
     </article>
+    <article class="slice" id="slice-56">
+      <h3>Slice 56: Swap names in the browser, and see what's sent</h3>
+      <span class="status">Done: live, 7 criteria PASS on production. 0 original words in all 3 request bodies. Replies aren't restored yet (by design)</span>
+      <p><b>The privacy feature the interviews kept asking for.</b> Priya's rule from interview 01 ("I'm not putting Tom's name in a doc") and her sanitizing cost ("15 minutes") become a swap list kept in the browser. Acme Foods becomes Customer A, Maya becomes Person 1, and "Show what's sent" previews the exact outgoing text before Send.</p>
+      <div class="versus">
+        <figure><a href="screenshots/slice-56.png" target="_blank"><img src="screenshots/slice-56.png" alt="Your swaps panel with five chips and the What's sent preview with ten marked placeholders" loading="lazy"></a><figcaption><b>Before Send:</b> five swaps, the vendor note ("They don't make an unapproved vendor approved"), and the preview with <b>10 swaps applied</b>, including all-caps "ACME" and "Acme's". The thread is fictional.</figcaption></figure>
+      </div>
+      <figure class="demo"><video src="screenshots/slice-56.mp4" controls muted playsinline preload="metadata" style="width:100%;display:block;background:#000"></video><figcaption>2 min 53 s, two takes, on production. The yellow spy counts <b>original words in the whole request body</b>, and prints the count, never the words: 0 of 5 on every send, including a follow-up with signed history. On purpose, it swaps Maya → "Ops", and gets the warning that a role name will confuse the coach. After a real reload the list survives, and "Clear swaps" empties it.</figcaption></figure>
+      <ul>
+        <li><b>How you prove a privacy feature on camera:</b> a spy in the page that counts the originals in every request body and shows only the number. The evidence is the zero. This is the same move as the password demos, applied to user data.</li>
+        <li><b>What the swaps don't touch:</b> "Maya (night desk)" became "Person 1 (night desk)", and the coach called that group "Ops (night desk)". A role in parentheses still carries identity. The note says only listed words are hidden, so this is by design, but it's worth knowing.</li>
+        <li><b>A new UX bug:</b> with "Your swaps" open, the sticky composer covers about 80% of the viewport, so the reply sits behind it, and even the "New reply ↓" pill can't reveal it.</li>
+        <li><b>Tooling truth vs. the help text:</b> <code>record start</code> does <i>not</i> carry localStorage into the new context, despite <code>--help</code>. A second in-take reload stopped the recorder silently. The last check was done by <code>eval</code>, and the report says so.</li>
+      </ul>
+    </article>
     <details class="projected-later">
       <summary>Projected, not built: 13 slices from the original roadmap (4a–13). The work moved to issue-driven slices, so these stay as DESIGNER's forecasts.</summary>
       <div class="later-grid">
