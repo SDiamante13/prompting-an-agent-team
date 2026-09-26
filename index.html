@@ -1413,7 +1413,7 @@ read all the docs here and create some mockups</div>
             <li><b>The PO steers the research.</b> Its two questions ("Would she paste real work material?" and "What's the minimum export she'd paste into Confluence?") went straight into Market Research's interview #2 script. The findings came back as issues (#27, #29, #34), and the audience recommendation became decision #26, waiting for Steven. Every session feeds the backlog, and the PO decides what to ask next.</li>
             <li><b>Tickets in a format the team can use:</b> "title + 1-line acceptance check" gets back work items with a done condition, not wishes.</li>
           </ul>
-          <div class="caveat"><b>Seen for real: they share one quota.</b> Around 23:56 local time, all five sessions hit the claude.ai usage limit <i>at the same time</i> and were paused for about 75 minutes, until each one got "Your usage limit has reset. Continue the task…". Five sessions on <code>/loop</code> plus a team of agents inside MAIN use the budget in parallel. The loop intervals are a cost setting, not just a speed setting. <b>It happened again at 10:00 local time (16:00 UTC)</b>, about 12 hours later: every session stopped mid-task for 70 minutes, including the #41 demo, the #73 builder and the deck loop, and all of them resumed together at 11:10. <b>A third time that evening:</b> from about 19:30 to 22:11 UTC, every session stopped mid-task again, including the pruning and watch loops of this page.</div>
+          <div class="caveat"><b>Seen for real: they share one quota.</b> Around 23:56 local time, all five sessions hit the claude.ai usage limit <i>at the same time</i> and were paused for about 75 minutes, until each one got "Your usage limit has reset. Continue the task…". Five sessions on <code>/loop</code> plus a team of agents inside MAIN use the budget in parallel. The loop intervals are a cost setting, not just a speed setting. <b>It happened again at 10:00 local time (16:00 UTC)</b>, about 12 hours later: every session stopped mid-task for 70 minutes, including the #41 demo, the #73 builder and the deck loop, and all of them resumed together at 11:10. <b>A third time that evening:</b> from about 19:30 to 22:11 UTC, every session stopped mid-task again, including the pruning and watch loops of this page. <b>And a fourth time overnight:</b> from about 01:45 to 03:11 UTC. When the sessions came back, production was down with an expired OpenRouter key (Prompt 35).</div>
           <div class="caveat" style="margin-top:10px">More sessions means more messages to route. The PO, the watcher and research are now messaging each other, and each message is another prompt someone has to read. The one thing only Steven provides is decisions: the [Steven] tags in the watcher's reply.</div>
         </details>
       </div>
@@ -1940,6 +1940,60 @@ Minimal words, use screenshots, videos, gifs,</div>
         <div class="sticky command response">The product owner now works on a loop too, and its unit of work is the <i>experiment</i>. Within two minutes, the Orchestrator's team had two new spikes (#91, #93) running under the paid-run rules. <b>The first result was humbling:</b> #91 pitted the live prompt against a one-line prompt. v11 won the hard checks <b>23/24 to 0/24</b>, but a blind judge preferred its <i>question</i> in only <b>11 of 28</b> pairs, below the 70% bar. The recorded conclusion: "UX is the moat". The structure is what's hard to copy, not the question alone. Steven's next prompt went straight at it: "what did that experiment that came back? What does that tell us? And how can we be differentiated enough…"</div>
       </div>
     </li>
+    <li>
+      <div class="when"><b>Orchestrator</b> · Prompts 30–31 · 23:34 UTC · what did we learn, and where's the moat?</div>
+      <div class="pair">
+        <div class="sticky event"><div class="quote">Okay, so what did that experiment that came back? What does that tell us? And how can we be differentiated enough to provide value about domain driven design concepts apply to particular systems.<br><br>discuss with market research and product</div>
+          <div class="tags"><a href="#t-synthetic">research as a peer</a><a href="#t-roles">three roles, one answer</a></div>
+        </div>
+        <div class="sticky command response">The Orchestrator read three spikes together. <b>#91:</b> the structure wins 23/24 to 0/24, but "any capable model asks a decent question, so a clever prompt isn't a moat on its own". <b>#92:</b> on 5 real public threads it found the term split 12/12, and asked a useful question on 3 of 5. <b>#93:</b> a cheaper model broke the structure. Then it named where the value is: <b>evidence you can verify</b>, <b>fitting her workflow</b>, and <b>a persistent model of <i>her</i> system</b> (glossary, drift, never re-asking what's settled). It sent the question to Market Research and PO, and Market Research answered in 30 seconds: "Two bets, one moat: evidence you can verify and a memory of her system are the same moat. A glossary entry is only worth something if it's traced and dated."</div>
+      </div>
+    </li>
+    <li>
+      <div class="when"><b>Orchestrator</b> · Prompt 32 · 23:40 UTC · the differentiator becomes the roadmap</div>
+      <div class="pair">
+        <div class="sticky event"><div class="quote">Yes, after #58 (Recommended)</div>
+          <div class="tags"><a href="#t-defaults">recommended option</a></div>
+        </div>
+        <div class="sticky command response">Market Research and the PO agreed that the differentiator is "a persistent, traceable model of HER system: a living glossary that flags drift against settled meanings and never re-asks settled rows". Steven approved <b>"Living glossary v0"</b> to follow the knowledge base (#58). Right away, the Orchestrator asked DOCS's modeling team to derive its sticky IDs from <b>one shared entity model</b>, so the glossary, the RFC export and the board all use the same stable IDs. The modeling push and the moat turned out to be the same work.</div>
+      </div>
+    </li>
+    <li>
+      <div class="when"><b>Orchestrator</b> · Prompt 33 · 23:43 UTC · a goal instead of a queue</div>
+      <div class="pair">
+        <div class="sticky event"><div class="quote">/goal keep working on the most important thing</div>
+          <div class="tags"><a href="#t-loop">standing order</a><a href="#t-defaults">the lead decides what's next</a></div>
+        </div>
+        <div class="sticky command response"><code>/goal</code> sets a session-scoped Stop hook: the lead <i>can't stop</i> until the condition holds. The condition isn't a task, it's a judgement ("the most important thing"), so the lead ranks its own work against PO's board (#58 → #100 living glossary → #99 → #8 …). Thirteen seconds later it briefed the next pathfinder. The earlier <code>/loop</code> said when to check in; <code>/goal</code> says don't stop.</div>
+      </div>
+    </li>
+    <li>
+      <div class="when"><b>Orchestrator</b> · Prompt 34 · 00:09 UTC · a loop that includes getting Steven's attention</div>
+      <div class="pair">
+        <div class="sticky event"><div class="quote">/loop keep working on issues that come available, also check with the product owner on priority and if we're working on the most important thing. Get my attention somehow to watch demo videos</div>
+          <div class="tags"><a href="#t-loop">standing order</a><a href="#t-roles">check with the PO</a></div>
+        </div>
+        <div class="sticky command response">On top of <code>/goal</code>, a loop with three duties: keep pulling issues, check priority with the PO, and <b>pull the human in</b> when a demo is ready. It started self-pacing straight away ("Teammate messages are the main wake signal; the fallback check is in 25 minutes"). In its first report it said it had fixed one thing itself before the #58 deploy: the server logged the text of dropped citations, which contradicted the page's promise. It now logs only the count.</div>
+      </div>
+    </li>
+    <li class="po">
+      <div class="when"><b>PRODUCT OWNER</b> · Prompt 9 · 03:22 UTC · where are we?</div>
+      <div class="pair">
+        <div class="sticky event"><div class="quote">Can you show me the next most important things you're working on? What's your progress on the slices?</div>
+          <div class="tags"><a href="#t-roles">the PO answers for the whole team</a></div>
+        </div>
+        <div class="sticky command response">The answer was a one-screen state of the product: <b>in progress</b> (#100 living glossary, built but switched off until its drift check passes "at most once in 12 runs"; #94, the board from DOCS's modeling team; #102 citation polish), <b>next</b> (#99, prompt fixes from real threads; #8 streaming; #5/#7 folded into #100's shared model), <b>experiments waiting</b> (#101, about $0.40), and a list of everything shipped since yesterday.</div>
+      </div>
+    </li>
+    <li>
+      <div class="when"><b>Orchestrator</b> · Prompt 35 · 03:23 UTC · production is down</div>
+      <div class="pair">
+        <div class="sticky event"><div class="quote">wait what's wrong with the key?</div>
+          <div class="tags"><a href="#t-secret">secrets you can't read</a><a href="#t-feeling">symptom first</a></div>
+        </div>
+        <div class="sticky command response">After the fourth shared pause, the live chat answered <b>"coach unavailable"</b>. The Orchestrator said what it could and couldn't know: "I haven't opened <code>.env</code> myself; I only know what the calls returned." One free check showed the local key had <b>expired</b>. The production key is a Netlify secret, so the CLI can't read it back, and "the 'same key' comparison is meaningless for the same reason." Its fix went back to Steven: a new key without an expiry, plus the ~$35 credit limit from #81, set in the Netlify UI and never pasted into chat.</div>
+      </div>
+    </li>
   </ol>
 </section>
 
@@ -2265,6 +2319,34 @@ Minimal words, use screenshots, videos, gifs,</div>
         <li><b>The recorder stretches:</b> a mid-take <code>set viewport 390</code> resizes the page, but the recorder stretches it into its 1280×578 frame. Two segments were rescaled back to their true shape in ffmpeg, and the report says so.</li>
       </ul>
     </article>
+    <article class="slice" id="slice-86">
+      <h3>Slices 86 + 89 + 6: Real names back, and Copy for your RFC</h3>
+      <span class="status">Done: live, all exercised criteria PASS. 0 originals in either request body; the copied Markdown is verbatim in the report</span>
+      <p><b>Swaps become round-trip.</b> Names go out as placeholders and come back restored <i>in the browser only</i>: the reply says "Acme", while the request history still says "Customer A" ×3 and "Acme" ×0. A marker line says so: "Names restored in this browser from your swaps." Then <b>Copy for your RFC</b> puts a real 4-column table, the open questions with their sources and the numbered events on the clipboard, as rich text and Markdown, dated "As of 25 Sep 2026". That's Priya's copy-out from interview 07. #89 fixed the swaps panel so it no longer covers the reply.</p>
+      <div class="versus">
+        <figure><a href="screenshots/slice-86-89-6.png" target="_blank"><img src="screenshots/slice-86-89-6.png" alt="Reply with Acme restored, the question card, the restored-names marker and Copy for your RFC" loading="lazy"></a><figcaption><b>On production:</b> "Acme" restored in the table and the question, the marker line, and "Copied for your RFC." The spy on the right shows 0 originals in both request bodies.</figcaption></figure>
+      </div>
+      <figure class="demo"><video src="screenshots/slice-86-89-6.mp4" controls muted playsinline preload="metadata" style="width:100%;display:block;background:#000"></video><figcaption>On production, 2 paid calls. The example thread is edited on camera (Customer D → Acme, "Account team" → "Maya (account team)"), swapped, sent, restored and copied. A clipboard spy captures exactly what the app wrote.</figcaption></figure>
+      <ul>
+        <li><b>A caption fixed in post, and disclosed:</b> the live caption claimed "real names (Acme, Maya)", but the reply named roles, not people, so only Acme came back. The verifier overlaid a corrected caption and wrote down why.</li>
+        <li><b>Two naming schemes on one screen:</b> a follow-up typed with real names shows as "Person 1 asks… Customer A's" in the You bubble, while the reply above says "Acme". It's deliberate proof of what left the browser, but a first-time visitor sees both.</li>
+        <li><b>Headless can't read the clipboard:</b> <code>clipboard.read()</code> is denied even after permission grants. So the copied content was captured by wrapping <code>clipboard.write</code>, and the report says the macOS clipboard stays empty.</li>
+      </ul>
+    </article>
+    <article class="slice" id="slice-58">
+      <h3>Slice 58: The coach grounded in Evans' DDD Reference</h3>
+      <span class="status">Done: live on prompt v13, 6 of 8 hosted criteria PASS (2 not exercised). Median 2.0 s, max 3.75 s. Invented citations are blocked by a server guard</span>
+      <p><b>The coach learned DDD itself.</b> Eric Evans' <i>Domain-Driven Design Reference</i> (CC BY 4.0) sits in the server-side prompt prefix. Ask "What's a bounded context?" and you get a paraphrase with a <b>Source</b> line citing the section title verbatim. Ask about something the Reference doesn't cover ("How do I run an Event Storming workshop?"), and it says "The sources I have don't cover this." If the model invents a section title, a <b>server guard</b> replaces it with "General practice: not from the Reference." and logs only the <i>count</i>, never the text.</p>
+      <div class="versus">
+        <figure><a href="screenshots/slice-58.png" target="_blank"><img src="screenshots/slice-58.png" alt="What's a bounded context answer with a Source line and the CC BY footer" loading="lazy"></a><figcaption><b>On production:</b> the answer, <code>SOURCE Evans, Domain-Driven Design Reference (2015), "Bounded Context"</code>, and the attribution footer with the licence link.</figcaption></figure>
+      </div>
+      <figure class="demo"><video src="screenshots/slice-58.mp4" controls muted playsinline preload="metadata" style="width:100%;display:block;background:#000"></video><figcaption>On production, 7 paid calls (the cap). A cited answer, an honest "don't cover this", a thread reply with no jargon, and an RFC copy with no citations in it.</figcaption></figure>
+      <ul>
+        <li><b>The guard earned its keep on the first day:</b> "what is DDD?" never cited validly, 0 of 3. Twice the model invented a title, and the guard replaced it. Once it gave an uncited definition, the exact thing #58 targets. The prompt says to cite, <i>and</i> to cite nothing when no section fits. The Reference has no "What is DDD" section, so those two rules conflict. Filed as a prompt fix.</li>
+        <li><b>Privacy caught before deploy:</b> the Orchestrator noticed the server was logging the text of dropped citations, which would contradict "Nothing is stored on our server." It changed the log to a count before shipping.</li>
+        <li><b>From Priya to the product line:</b> the synthetic research had asked for a coach that "knows DDD". This slice answers it with licensed, cited content, and it admits what the Reference doesn't cover instead of improvising.</li>
+      </ul>
+    </article>
     <details class="projected-later">
       <summary>Projected, not built: 13 slices from the original roadmap (4a–13). The work moved to issue-driven slices, so these stay as DESIGNER's forecasts.</summary>
       <div class="later-grid">
@@ -2390,6 +2472,7 @@ Minimal words, use screenshots, videos, gifs,</div>
 
     const GLOSSARY = [
       { key: '/loop', re: /(?<![\w\/])\/loop\b/g, def: 'A Claude Code command that keeps re-running a prompt: on a fixed interval, or self-paced ("check again when something changes"). DOCS, Market Research and PRODUCT OWNER all run on one.' },
+      { key: '/goal', re: /(?<![\w\/])\/goal\b/g, def: 'Sets a session-scoped Stop hook with a condition, like "keep working on the most important thing". The session can\'t end its turn until the condition holds, so it keeps choosing and doing the next piece of work.' },
       { key: '/compact', re: /(?<![\w\/])\/compact\b/g, def: 'Squashes the conversation so far into a short summary to free up the model\'s working memory (its context window). Anything that matters should already be in files, because the details are gone after this.' },
       { key: '/rewind', re: /(?<![\w\/])\/rewind\b|Esc Esc/g, def: 'Jumps the conversation back to an earlier message (also Esc Esc) so you can send a different prompt from there. It can restore files that session edited, but it does not stop other agents or undo git commits.' },
       { key: '/design', re: /(?<![\w\/])\/design\b/g, def: 'A slash command that creates a visual design canvas as a claude.ai artifact, then fills it with mockups.' },
