@@ -250,7 +250,7 @@
 
 <header>
   <h1>Prompting an agent team</h1>
-  <p class="lede">How Steven steered five Claude Code sessions (an Orchestrator with its own agent team, plus DESIGNER, Market Research, PRODUCT OWNER and a DOCS watcher) while building a DDD coach app for Explore DDD. Every prompt, the technique behind it, and what the agents did in return, from the gist down to the reusable template.</p>
+  <p class="lede">How Steven steered five Claude Code sessions (an Orchestrator with its own agent team, plus DESIGNER, Market Research, PRODUCT OWNER and a DOCS watcher) while building a DDD coach app, first aimed at the Explore DDD conference and later at practitioners working alone. Every prompt, the technique behind it, and what the agents did in return, from the gist down to the reusable template.</p>
 
   <div class="legend page-legend" aria-label="Sticky colour legend">
     <span><i style="background:var(--event)"></i>Steven's prompt</span>
@@ -1991,7 +1991,16 @@ Minimal words, use screenshots, videos, gifs,</div>
         <div class="sticky event"><div class="quote">wait what's wrong with the key?</div>
           <div class="tags"><a href="#t-secret">secrets you can't read</a><a href="#t-feeling">symptom first</a></div>
         </div>
-        <div class="sticky command response">After the fourth shared pause, the live chat answered <b>"coach unavailable"</b>. The Orchestrator said what it could and couldn't know: "I haven't opened <code>.env</code> myself; I only know what the calls returned." One free check showed the local key had <b>expired</b>. The production key is a Netlify secret, so the CLI can't read it back, and "the 'same key' comparison is meaningless for the same reason." Its fix went back to Steven: a new key without an expiry, plus the ~$35 credit limit from #81, set in the Netlify UI and never pasted into chat.</div>
+        <div class="sticky command response">After the fourth shared pause, the live chat answered <b>"coach unavailable"</b>. The Orchestrator said what it could and couldn't know: "I haven't opened <code>.env</code> myself; I only know what the calls returned." One free check showed the local key had <b>expired</b>. The production key is a Netlify secret, so the CLI can't read it back, and "the 'same key' comparison is meaningless for the same reason." Its fix went back to Steven: a new key without an expiry, plus the ~$35 credit limit from #81, set in the Netlify UI and never pasted into chat. Seven minutes later Steven typed <b>"the key issue is fixed"</b>. That time the secret really did stay out of the chat, unlike the password (Prompt 25).</div>
+      </div>
+    </li>
+    <li class="designer">
+      <div class="when"><b>DESIGNER</b> · Prompt 10 · 03:29 UTC · prune the deck</div>
+      <div class="pair">
+        <div class="sticky event"><div class="quote">whens the last time the slides have beeen updated. revise them and pulll from focused learnig  moments, drop momenets that don't add value</div>
+          <div class="tags"><a href="#t-reflect">edit for the audience</a></div>
+        </div>
+        <div class="sticky command response">The deck had grown slide by slide, one per demo, through v23. Now Steven asked for the opposite move: cut it down to the moments that teach something. It's the same instruction he gave DOCS for this page ("prune the docs as you go"), aimed at the talk.</div>
       </div>
     </li>
   </ol>
