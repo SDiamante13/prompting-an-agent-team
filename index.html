@@ -1991,7 +1991,7 @@ Minimal words, use screenshots, videos, gifs,</div>
         <div class="sticky event"><div class="quote">wait what's wrong with the key?</div>
           <div class="tags"><a href="#t-secret">secrets you can't read</a><a href="#t-feeling">symptom first</a></div>
         </div>
-        <div class="sticky command response">After the fourth shared pause, the live chat answered <b>"coach unavailable"</b>. The Orchestrator said what it could and couldn't know: "I haven't opened <code>.env</code> myself; I only know what the calls returned." One free check showed the local key had <b>expired</b>. The production key is a Netlify secret, so the CLI can't read it back, and "the 'same key' comparison is meaningless for the same reason." Its fix went back to Steven: a new key without an expiry, plus the ~$35 credit limit from #81, set in the Netlify UI and never pasted into chat. Seven minutes later Steven typed <b>"the key issue is fixed"</b>. That time the secret really did stay out of the chat, unlike the password (Prompt 25).</div>
+        <div class="sticky command response">After the fourth shared pause, the live chat answered <b>"coach unavailable"</b>. The Orchestrator said what it could and couldn't know: "I haven't opened <code>.env</code> myself; I only know what the calls returned." One free check showed the local key had <b>expired</b>. The production key is a Netlify secret, so the CLI can't read it back, and "the 'same key' comparison is meaningless for the same reason." Its fix went back to Steven: a new key without an expiry, plus the ~$35 credit limit from #81, set in the Netlify UI and never pasted into chat. Seven minutes later Steven typed <b>"the key issue is fixed"</b>, but it wasn't yet. A free check got "User not found", and without printing the key the Orchestrator noticed it was <b>76 characters instead of the usual 73</b>, so something extra had been pasted in. Steven re-copied it ("id id that", 03:36), and a redeploy followed. Through all of it, the secret never appeared in the chat, unlike the password (Prompt 25).</div>
       </div>
     </li>
     <li class="designer">
@@ -2001,6 +2001,15 @@ Minimal words, use screenshots, videos, gifs,</div>
           <div class="tags"><a href="#t-reflect">edit for the audience</a></div>
         </div>
         <div class="sticky command response">The deck had grown slide by slide, one per demo, through v23. Now Steven asked for the opposite move: cut it down to the moments that teach something. It's the same instruction he gave DOCS for this page ("prune the docs as you go"), aimed at the talk.</div>
+      </div>
+    </li>
+    <li class="po">
+      <div class="when"><b>PRODUCT OWNER</b> · Prompts 10–11 · 03:31–03:36 UTC · build, don't integrate</div>
+      <div class="pair">
+        <div class="sticky event"><div class="quote">give me a report on the team prioriies and latest innovation experiments we can tackle<br><br>we will not integrate with Miro, we will build our own whiteboard</div>
+          <div class="tags"><a href="#t-roles">the owner sets direction</a><a href="#t-spike">spike the foundation</a></div>
+        </div>
+        <div class="sticky command response">The report was an idea list, and one idea was "Send to Miro" (#105). Steven closed it in one line. Within minutes the team re-planned around <b>its own whiteboard</b>: #105 closed, #104 became the "whiteboard foundation" spike (an open-source canvas vs a custom renderer, $0, run by the DOCS modeling team), and #95 → #96 → #97 → <b>#20 "Whiteboard navigation"</b> (pan/zoom, drag with kept positions, "Follow coach") now each key positions by the shared entityId. The board DOCS's team was building for #94 turned out to be the product's whiteboard.</div>
       </div>
     </li>
   </ol>
